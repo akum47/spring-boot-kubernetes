@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: demo-v2
+  name: demo-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-v2
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: demo-v2
+    spec:
+      containers:
+      - image: akum47/demo-v1
+        name: demo-v1
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: demo-v2
+  name: demo-v2
+spec:
+  ports:
+  - name: 8080-8080
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: demo-v2
+  type: ClusterIP
+status:
+  loadBalancer: {}
